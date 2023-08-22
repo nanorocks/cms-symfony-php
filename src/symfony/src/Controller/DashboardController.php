@@ -6,12 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CategoryController extends AbstractController
+class DashboardController extends AbstractController
 {
-    #[Route('/category', name: 'app_category')]
+    #[Route('/dashboard', name: 'app_dashboard')]
     public function index()
     {
-        return $this->render('admin/category/index.html.twig', [
+
+        return $this->render('admin/dashboard.html.twig', [
 
         ]);
     }

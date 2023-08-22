@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "npx tailwindcss-cli -i public/assets/css/styles.css -o public/dist/css/styles.css"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}

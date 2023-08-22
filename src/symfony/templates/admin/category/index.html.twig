@@ -1,0 +1,87 @@
+{# app/Resources/views/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# the following is valid #}
+{% block content %}
+
+<aside class="bg-blue-800 text-white w-64 h-screen fixed">
+    <div class="py-8 px-6">
+        <h1 class="text-xl font-semibold">Dashboard</h1>
+    </div>
+    <nav>
+        <ul class="space-y-2">
+            <li><a href="#" class="block py-2 px-6 hover:bg-blue-700">Home</a></li>
+            <li><a href="#" class="block py-2 px-6 hover:bg-blue-700">Posts</a></li>
+            <li><a href="#" class="block py-2 px-6 hover:bg-blue-700">Users</a></li>
+            <li><a href="#" class="block py-2 px-6 hover:bg-blue-700">Analytics</a></li>
+            <!-- Add more navigation links here -->
+        </ul>
+    </nav>
+</aside>
+
+<main class="ml-64 p-8">
+    <h2 class="text-2xl font-semibold mb-4">Category Management</h2>
+
+    <!-- Create Category Form -->
+     <!-- Create Category Form -->
+    <div class="mb-6">
+        <h3 class="text-xl font-semibold mb-2">Create Category</h3>
+        <form action="/create-category" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="mb-4">
+                <label for="id" class="block text-gray-600 text-sm mb-2">ID</label>
+                <input type="text" id="id" name="id" class="w-full p-2 border rounded-sm text-gray-700 focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="parent_id" class="block text-gray-600 text-sm mb-2">Parent ID</label>
+                <input type="text" id="parent_id" name="parent_id" class="w-full p-2 border rounded-sm text-gray-700 focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="name" class="block text-gray-600 text-sm mb-2">Name</label>
+                <input type="text" id="name" name="name" class="w-full p-2 border rounded-sm text-gray-700 focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="slug" class="block text-gray-600 text-sm mb-2">Slug</label>
+                <input type="text" id="slug" name="slug" class="w-full p-2 border rounded-sm text-gray-700 focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-gray-600 text-sm mb-2">Description</label>
+                <textarea id="description" name="description" class="w-full p-2 border rounded-sm text-gray-700 focus:outline-none focus:border-blue-500"></textarea>
+            </div>
+            <div class="md:flex md:items-end">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none">Create</button>
+            </div>
+        </form>
+    </div>
+ <!-- List of Categories -->
+    <div class="overflow-x-auto">
+        <h3 class="text-xl font-semibold mb-2">Categories</h3>
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="py-2 px-4 border border-gray-300">ID</th>
+                    <th class="py-2 px-4 border border-gray-300">Parent ID</th>
+                    <th class="py-2 px-4 border border-gray-300">Name</th>
+                    <th class="py-2 px-4 border border-gray-300">Slug</th>
+                    <th class="py-2 px-4 border border-gray-300">Description</th>
+                    <th class="py-2 px-4 border border-gray-300">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white">
+                    <td class="py-2 px-4 border border-gray-300">1</td>
+                    <td class="py-2 px-4 border border-gray-300">-</td>
+                    <td class="py-2 px-4 border border-gray-300">Category 1</td>
+                    <td class="py-2 px-4 border border-gray-300">category-1</td>
+                    <td class="py-2 px-4 border border-gray-300">Lorem ipsum dolor sit amet.</td>
+                    <td class="py-2 px-4 border border-gray-300">
+                        <a href="/edit-category/1" class="text-blue-500 hover:underline">Edit</a>
+                        <a href="/delete-category/1" class="text-red-500 hover:underline ml-2">Delete</a>
+                    </td>
+                </tr>
+                <!-- Add more rows with placeholder data here -->
+            </tbody>
+        </table>
+    </div>
+</main>
+
+{% endblock %}

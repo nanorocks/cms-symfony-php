@@ -1,0 +1,45 @@
+{# app/Resources/views/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# the following is valid #}
+{% block content %}
+
+ {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path('app_login') }}" method="post">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password">
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+        {# If you want to control the URL the user is redirected to on success #}
+        <input type="hidden" name="_target_path" value="/dashboard"> 
+
+        <button type="submit">login</button>
+    </form>
+
+<div class="bg-gray-100 flex items-center justify-center h-screen">
+<div class="w-full max-w-md bg-white p-8 rounded shadow-md">
+    <h2 class="text-2xl font-semibold mb-4">Log in to Your CMS</h2>
+    <form>
+        <div class="mb-4">
+            <label for="email" class="block text-gray-600 text-sm mb-2">Email</label>
+            <input type="email" id="email" name="email" class="w-full p-2 border rounded-sm text-gray-700 focus:outline-none focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="password" class="block text-gray-600 text-sm mb-2">Password</label>
+            <input type="password" id="password" name="password" class="w-full p-2 border rounded-sm text-gray-700 focus:outline-none focus:border-blue-500">
+        </div>
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none">Log In</button>
+    </form>
+    <p class="text-gray-600 text-sm mt-4">Don't have an account? <a href="#" class="text-blue-500 hover:underline">Sign Up</a></p>
+</div>
+</div>
+
+{% endblock %}

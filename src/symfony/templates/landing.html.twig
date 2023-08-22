@@ -1,0 +1,92 @@
+{# app/Resources/views/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# the following is valid #}
+{% block content %}
+<!-- Features Section -->
+
+<!-- Hero Section -->
+<section class="bg-blue-900 text-white py-20">
+    <div class="container mx-auto text-center">
+        <h1 class="text-5xl font-semibold mb-6">Elevate Your Content Management</h1>
+        <p class="text-xl mb-8">Effortlessly create, organize, and publish captivating content that engages your audience.</p>
+        <a href="#" class="bg-white text-blue-700 hover:bg-blue-100 py-3 px-8 rounded-full font-semibold transition duration-300">Get Started</a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="bg-gray-100 py-16">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-semibold mb-12">Why Choose Your CMS?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Feature 1 -->
+            <div class="bg-white p-8 shadow-md rounded-lg">
+                <h3 class="text-xl font-semibold mb-4">Intuitive Interface</h3>
+                <p class="text-gray-700">Our user-friendly interface ensures that you spend less time managing content and more time focusing on your audience.</p>
+            </div>
+            <!-- Feature 2 -->
+            <div class="bg-white p-8 shadow-md rounded-lg">
+                <h3 class="text-xl font-semibold mb-4">Customization at Its Best</h3>
+                <p class="text-gray-700">Tailor your content using our extensive customization options, allowing you to match your brand's unique identity.</p>
+            </div>
+            <!-- Feature 3 -->
+            <div class="bg-white p-8 shadow-md rounded-lg">
+                <h3 class="text-xl font-semibold mb-4">Seamless Collaboration</h3>
+                <p class="text-gray-700">Collaborate with your team members in real-time, streamline workflows, and achieve content excellence together.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Content Section -->
+<section class="py-16">
+    <div class="container mx-auto text-center">
+        <h2 class="text-4xl font-semibold mb-8">Unlock Your Content's Potential</h2>
+        <p class="text-gray-700 text-lg mb-10">With Your CMS, you're not just managing content; you're crafting experiences. Whether you're a blogger, a business owner, or a creative mind, our platform empowers you to bring your vision to life.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div>
+                <h3 class="text-2xl font-semibold mb-4">Effortless Content Creation</h3>
+                <p class="text-gray-700">Our intuitive editor lets you compose and format content seamlessly, making it easy to express your ideas in the most engaging way.</p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-4">Data-Driven Insights</h3>
+                <p class="text-gray-700">Harness the power of analytics to understand what resonates with your audience. Make informed decisions to optimize your content strategy.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="bg-gray-100 py-20">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-semibold mb-6">What Our Users Say</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="bg-white p-8 shadow-md rounded-lg">
+                <p class="text-gray-700 italic mb-4">"Your CMS has revolutionized the way I manage content. It's intuitive and packed with features."</p>
+                <p class="text-gray-600 font-semibold">Jane Doe</p>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="bg-white p-8 shadow-md rounded-lg">
+                <p class="text-gray-700 italic mb-4">"As a content creator, I rely on Your CMS to streamline my workflow and deliver stunning content."</p>
+                <p class="text-gray-600 font-semibold">John Smith</p>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="bg-white p-8 shadow-md rounded-lg">
+                <p class="text-gray-700 italic mb-4">"Collaborating with my team has never been easier. Your CMS is a game-changer."</p>
+                <p class="text-gray-600 font-semibold">Emily Johnson</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="bg-blue-800 text-white py-16">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-semibold mb-6">Ready to Get Started?</h2>
+        <p class="text-lg mb-10">Join thousands of creators who are transforming their content management experience with Your CMS.</p>
+        <a href="#" class="bg-white text-blue-700 hover:bg-blue-100 py-3 px-8 rounded-full font-semibold transition duration-300">Sign Up Today</a>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,106 @@
+{# app/Resources/views/blog/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# the following is valid #}
+{% block content %}
+<div class="bg-gray-100 font-sans">
+<!-- Sidebar -->
+<aside class="bg-blue-800 text-white w-64 h-screen fixed">
+    <div class="py-8 px-6">
+        <h1 class="text-xl font-semibold">Dashboard</h1>
+    </div>
+    <nav>
+        <ul class="space-y-2">
+            <li><a href="#" class="block py-2 px-6 hover:bg-blue-700">Home</a></li>
+            <li><a href="#" class="block py-2 px-6 hover:bg-blue-700">Posts</a></li>
+            <li><a href="#" class="block py-2 px-6 hover:bg-blue-700">Users</a></li>
+            <li><a href="#" class="block py-2 px-6 hover:bg-blue-700">Analytics</a></li>
+            <!-- Add more navigation links here -->
+        </ul>
+    </nav>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 p-8">
+    <h2 class="text-2xl font-semibold mb-4">Welcome to Your CMS Dashboard</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Widget 1 - Recent Posts -->
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-lg font-semibold mb-3">Recent Posts</h3>
+            <ul class="space-y-2">
+                <li><a href="#">Post 1</a></li>
+                <li><a href="#">Post 2</a></li>
+                <li><a href="#">Post 3</a></li>
+                <!-- Add more posts here -->
+            </ul>
+        </div>
+        <!-- Widget 2 - Analytics -->
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-lg font-semibold mb-3">Analytics</h3>
+            <div id="analyticsChart" class="w-full h-40"></div>
+        </div>
+        <!-- Widget 3 - User Activity -->
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-lg font-semibold mb-3">User Activity</h3>
+            <ul class="space-y-2">
+                <li><span class="text-gray-600">User A</span> performed action X</li>
+                <li><span class="text-gray-600">User B</span> performed action Y</li>
+                <li><span class="text-gray-600">User C</span> performed action Z</li>
+                <!-- Add more user activity entries here -->
+            </ul>
+        </div>
+    </div>
+    <div class="mt-8">
+        <!-- Analytics Data Table -->
+        <h3 class="text-xl font-semibold mb-4">Analytics Data</h3>
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="py-2 px-4 border border-gray-300">Date</th>
+                    <th class="py-2 px-4 border border-gray-300">Page Views</th>
+                    <th class="py-2 px-4 border border-gray-300">Unique Visitors</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="py-2 px-4 border border-gray-300">2023-08-01</td>
+                    <td class="py-2 px-4 border border-gray-300">1200</td>
+                    <td class="py-2 px-4 border border-gray-300">800</td>
+                </tr>
+                <tr>
+                    <td class="py-2 px-4 border border-gray-300">2023-08-02</td>
+                    <td class="py-2 px-4 border border-gray-300">1500</td>
+                    <td class="py-2 px-4 border border-gray-300">1000</td>
+                </tr>
+                <!-- Add more rows with data here -->
+            </tbody>
+        </table>
+    </div>
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.29.0/dist/apexcharts.min.js"></script>
+<script>
+    // Example Analytics Chart
+    const options = {
+        chart: {
+            type: 'bar',
+            height: 320,
+            toolbar: {
+                show: false,
+            },
+        },
+        series: [{
+            name: 'Page Views',
+            data: [1200, 1500, 1800, 2100, 2500, 2800, 3200],
+        }],
+        xaxis: {
+            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        },
+    };
+    const chart = new ApexCharts(document.querySelector('#analyticsChart'), options);
+    chart.render();
+</script>
+
+</div>
+
+{% endblock %}
