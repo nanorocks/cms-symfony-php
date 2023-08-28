@@ -22,7 +22,6 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-
     public function createCategory(CreateUpdateCategoryDto $categoryDto)
     {
         $category = new Category();
@@ -30,12 +29,24 @@ class CategoryRepository extends ServiceEntityRepository
         $category->setName($categoryDto->name);
         $category->setParent($categoryDto->parent);
         $category->setSlug($categoryDto->slug);
+        $category->setImage($categoryDto->image);
         $category->setDescription($categoryDto->description);
-        $category->setCreatedAt(new \DateTimeImmutable('today'));
+        $category->setCreatedAt(new \DateTimeImmutable('now'));
 
         $entityManager = $this->getEntityManager();
         $entityManager->persist($category);
         $entityManager->flush();
+
+        return $category;
+    }
+
+    public function createIfNotExist(CreateUpdateCategoryDto $categoryDto): Category
+    {
+        $category = $this->findOneBy(['slug' => $categoryDto->slug]);
+
+        if (!$category) {
+            $category = $this->createCategory($categoryDto);
+        }
 
         return $category;
     }

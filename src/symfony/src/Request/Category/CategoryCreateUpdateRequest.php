@@ -3,6 +3,7 @@
 namespace App\Request\Category;
 
 use App\DataTransferObject\Category\CreateUpdateCategoryDto;
+use App\Entity\Media;
 use App\Requests\BaseRequest;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,8 +18,9 @@ class CategoryCreateUpdateRequest extends BaseRequest
     #[Assert\NotBlank]
     protected string $slug;
 
-    #[Assert\NotBlank]
-    protected string $description;
+    protected ?string $description;
+
+    protected ?Media $image;
 
     public function toDto() : ?CreateUpdateCategoryDto
     {
@@ -26,7 +28,8 @@ class CategoryCreateUpdateRequest extends BaseRequest
             $this->name,
             $this->parent,
             $this->slug,
-            $this->description
+            $this->description,
+            $this->image
         );
     }
 

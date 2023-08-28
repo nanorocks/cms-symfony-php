@@ -24,7 +24,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent', )]
@@ -105,7 +105,7 @@ class Category
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 

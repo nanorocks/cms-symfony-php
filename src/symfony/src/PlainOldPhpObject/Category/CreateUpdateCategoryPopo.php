@@ -3,6 +3,7 @@
 namespace App\PlainOldPhpObject\Category;
 
 use App\Entity\Category;
+use App\Entity\Media;
 
 class CreateUpdateCategoryPopo
 {
@@ -11,6 +12,7 @@ class CreateUpdateCategoryPopo
     public ?int $parent;
     public string $slug;
     public string $description;
+    public ?Media $image;
 
     public function __construct(
         Category $category
@@ -21,6 +23,7 @@ class CreateUpdateCategoryPopo
         $this->parent = $category->getParent();
         $this->slug = $category->getSlug();
         $this->description = $category->getDescription();
+        $this->image = $category->getImage();
     }
 
 
