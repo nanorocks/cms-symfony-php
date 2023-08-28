@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DataTransferObject\Category\CreateUpdateCategoryDto;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,24 @@ class CategoryRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Category::class);
+    }
+
+
+    public function createCategory(CreateUpdateCategoryDto $categoryDto)
+    {
+        $category = new Category();
+
+        $category->setName($categoryDto->name);
+        $category->setParent($categoryDto->parent);
+        $category->setSlug($categoryDto->slug);
+        $category->setDescription($categoryDto->description);
+        $category->setCreatedAt(new \DateTimeImmutable('today'));
+
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($category);
+        $entityManager->flush();
+
+        return $category;
     }
 
 //    /**

@@ -27,19 +27,18 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent', )]
     private ?self $parent = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
         $this->contentItems = new ArrayCollection();
-        $this->parent = new ArrayCollection();
     }
 
     public function getId(): ?int
