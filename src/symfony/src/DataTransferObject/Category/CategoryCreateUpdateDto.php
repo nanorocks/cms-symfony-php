@@ -4,7 +4,7 @@ namespace App\DataTransferObject\Category;
 
 use App\Entity\Media;
 
-class CreateUpdateCategoryDto
+class CategoryCreateUpdateDto
 {
     public function __construct(
         public string $name,

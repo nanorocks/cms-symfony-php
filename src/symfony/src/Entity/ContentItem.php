@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Enums\ContentItemType;
+use App\Enum\ContentItemType;
 use App\Repository\ContentItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

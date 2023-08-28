@@ -1,11 +1,11 @@
 <?php
 
-namespace App\PlainOldPhpObject\Category;
+namespace App\PlainOldPhpObject\ContentItem;
 
 use App\Entity\Category;
 use App\Entity\Media;
 
-class CreateUpdateCategoryPopo
+class ContentItemCreateUpdatePopo
 {
     public int $id;
     public string $name;

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Enums\UserRoles;
+use App\Enum\UserRoles;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

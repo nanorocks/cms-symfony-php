@@ -2,14 +2,12 @@
 
 namespace App\Command;
 
-use App\DataTransferObject\Category\CreateUpdateCategoryDto;
+use App\DataTransferObject\Category\CategoryCreateUpdateDto;
 use App\Helper\CategoryHelper;
 use App\Repository\CategoryRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -56,7 +54,7 @@ class SyncCategoriesCommand extends Command
 
         foreach ($categories as $category)
         {
-            $this->categoryRepository->createIfNotExist(new CreateUpdateCategoryDto(
+            $this->categoryRepository->createIfNotExist(new CategoryCreateUpdateDto(
                 $category,
                 null,
                 CategoryHelper::slugify($category),

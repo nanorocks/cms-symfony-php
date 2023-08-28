@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\PlainOldPhpObject\Category\CreateUpdateCategoryPopo;
+use App\PlainOldPhpObject\Category\CategoryCreateUpdatePopo;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Request\Category\CategoryCreateUpdateRequest;
@@ -36,7 +36,7 @@ class CategoryController extends AbstractController
 
         return $this->json([
             'msg' => 'Category created!!!',
-            'data' => (new CreateUpdateCategoryPopo($category))->json()
+            'data' => (new CategoryCreateUpdatePopo($category))->json()
         ], 200);
     }
 

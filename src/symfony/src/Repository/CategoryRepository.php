@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\DataTransferObject\Category\CreateUpdateCategoryDto;
+use App\DataTransferObject\Category\CategoryCreateUpdateDto;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,7 +22,7 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    public function createCategory(CreateUpdateCategoryDto $categoryDto)
+    public function createCategory(CategoryCreateUpdateDto $categoryDto)
     {
         $category = new Category();
 
@@ -40,7 +40,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $category;
     }
 
-    public function createIfNotExist(CreateUpdateCategoryDto $categoryDto): Category
+    public function createIfNotExist(CategoryCreateUpdateDto $categoryDto): Category
     {
         $category = $this->findOneBy(['slug' => $categoryDto->slug]);
 
