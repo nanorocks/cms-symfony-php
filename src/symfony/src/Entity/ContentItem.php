@@ -88,6 +88,18 @@ class ContentItem
         return $this;
     }
 
+    public function setContentItemType(?ContentItemType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getContentItemType()
+    {
+        return $this->type;
+    }
+
     public function getSlug(): ?string
     {
         return $this->slug;

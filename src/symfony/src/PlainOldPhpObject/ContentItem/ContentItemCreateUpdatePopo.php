@@ -2,28 +2,38 @@
 
 namespace App\PlainOldPhpObject\ContentItem;
 
-use App\Entity\Category;
+use App\Entity\ContentItem;
 use App\Entity\Media;
+use App\Entity\User;
+use App\Enum\ContentItemType;
+use Doctrine\Common\Collections\Collection;
 
 class ContentItemCreateUpdatePopo
 {
     public int $id;
-    public string $name;
-    public ?int $parent;
-    public string $slug;
-    public string $description;
-    public ?Media $image;
+    public string $title;
+    public ?string $slug;
+    // public ?string $content;
+    public ?string $excerpt;
+    // public ?ContentItemType $type;
+    // public ?bool $published;
+    // public ?\DateTimeImmutable $publishedAt;
+    // public ?User $author;
+    // public Collection $categories;
+    public ?string $videoUrl;
+    public Collection $images;
+    // public Collection $tags;
 
     public function __construct(
-        Category $category
+        ContentItem $contentItem
     )  
     {
-        $this->id = $category->getId();
-        $this->name = $category->getName();
-        $this->parent = $category->getParent();
-        $this->slug = $category->getSlug();
-        $this->description = $category->getDescription();
-        $this->image = $category->getImage();
+        $this->id = $contentItem->getId();
+        $this->title = $contentItem->getTitle();
+        $this->slug = $contentItem->getSlug();
+        $this->excerpt = $contentItem->getExcerpt();
+        $this->images = $contentItem->getImage();
+        $this->videoUrl = $contentItem->getVideoUrl();
     }
 
 
@@ -31,9 +41,11 @@ class ContentItemCreateUpdatePopo
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'parent' => $this->parent,
-            'description' => $this->description,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'excerpt' => $this->excerpt,
+            'images' => $this->images,
+            'videoUrl' => $this->videoUrl,
         ];
     }
 }

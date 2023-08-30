@@ -29,11 +29,11 @@ class ContentItemController extends AbstractController
     #[Route('/content-items', name: 'app_content_item_create', methods: [Request::METHOD_POST])]
     public function create(ContentItemCreateUpdateRequest $request)
     {
-        $category = $this->contentItemRepository->createCategory($request->toDto());
+        $contentItem = $this->contentItemRepository->createContentItem($request->toDto());
 
         return $this->json([
             'msg' => 'Content item created!!!',
-            'data' => (new ContentItemCreateUpdatePopo($category))->json()
+            'data' => (new ContentItemCreateUpdatePopo($contentItem))->json()
         ], 200);
     }
 }

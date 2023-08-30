@@ -2,7 +2,11 @@
 
 namespace App\Repository;
 
+use App\DataTransferObject\ContentItem\ContentItemCreateUpdateDto;
+use App\Entity\Category;
 use App\Entity\ContentItem;
+use App\Entity\Media;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,6 +25,44 @@ class ContentItemRepository extends ServiceEntityRepository
         parent::__construct($registry, ContentItem::class);
     }
 
+    public function createContentItem(ContentItemCreateUpdateDto $contentItemDto)
+    {
+        $contentItem = new ContentItem();
+
+        $contentItem->setTitle($contentItemDto->title);
+        $contentItem->setSlug($contentItemDto->slug);
+        $contentItem->setContent($contentItemDto->content);
+        $contentItem->setExcerpt($contentItemDto->excerpt);
+        $contentItem->setContentItemType($contentItemDto->type);
+        $contentItem->setPublished($contentItemDto->published);
+        $contentItem->setPublishedAt($contentItemDto->publishedAt);
+        $contentItem->setAuthor($contentItemDto->author);
+
+        foreach($contentItemDto->categories as $category) // ? not sure it will work
+        {
+            $contentItem->addCategory(new Category($category));
+        }
+       
+        $contentItem->setVideoUrl($contentItemDto->videoUrl);
+        $contentItem->setCreatedAt(new \DateTimeImmutable('now'));
+
+        foreach($contentItemDto->images as $image) // ? not sure it will work
+        {
+            $contentItem->addImage(new Media($image));
+        }
+
+        foreach($contentItemDto->tags as $tag) // ? not sure it will work
+        {
+            $contentItem->addTag(new Tag($tag));
+        }
+
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($contentItem);
+        $entityManager->flush();
+
+        return $contentItem;
+    }
+    
 //    /**
 //     * @return ContentItem[] Returns an array of ContentItem objects
 //     */
