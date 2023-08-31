@@ -2,9 +2,7 @@
 
 namespace App\Command;
 
-use App\DataTransferObject\Category\CategoryCreateUpdateDto;
 use App\DataTransferObject\Tag\TagCreateUpdateDto;
-use App\Helper\CategoryHelper;
 use App\Repository\TagRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

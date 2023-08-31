@@ -3,7 +3,6 @@
 namespace App\Request\Tag;
 
 use App\DataTransferObject\Tag\TagCreateUpdateDto;
-use App\Entity\Media;
 use App\Requests\BaseRequest;
 
 use Symfony\Component\Validator\Constraints as Assert;
