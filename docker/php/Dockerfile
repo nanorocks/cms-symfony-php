@@ -31,6 +31,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install soap \
     && docker-php-source delete
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
 # Install Postgre PDO
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
