@@ -2,18 +2,24 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'app_user')]
-    public function index(): JsonResponse
+    public function __construct(protected UserRepository $userRepository)
+    {}
+
+    #[Route('/users', name: 'app_user', methods: [Request::METHOD_GET])]
+    public function index()
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UserController.php',
+        $users = $this->userRepository->findAll();
+        
+        return $this->render('admin/user/index.html.twig', [
+            'users' => $users
         ]);
     }
 }

@@ -2,18 +2,24 @@
 
 namespace App\Controller;
 
+use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CommentController extends AbstractController
 {
-    #[Route('/comment', name: 'app_comment')]
-    public function index(): JsonResponse
+    public function __construct(protected CommentRepository $commentRepository)
+    {}
+
+    #[Route('/comments', name: 'app_comment', methods: [Request::METHOD_GET])]
+    public function index()
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/CommentController.php',
+        $comments = $this->commentRepository->findAll();
+        
+        return $this->render('admin/comment/index.html.twig', [
+            'comments' => $comments
         ]);
     }
 }
