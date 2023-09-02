@@ -15,7 +15,17 @@ class TagController extends AbstractController
     public function __construct(protected TagRepository $tagRepository)
     {}
 
-    #[Route('/tags', name: 'app_category_create', methods: [Request::METHOD_POST])]
+    #[Route('/tags', name: 'app_tag', methods: [Request::METHOD_GET])]
+    public function index()
+    {
+        $tags = $this->tagRepository->findAll();
+        
+        return $this->render('admin/tag/index.html.twig', [
+            'tags' => $tags
+        ]);
+    }
+
+    #[Route('/tags', name: 'app_tag_create', methods: [Request::METHOD_POST])]
     public function create(TagCreateUpdateRequest $request)
     {
         $tag = $this->tagRepository->createTag($request->toDto());
