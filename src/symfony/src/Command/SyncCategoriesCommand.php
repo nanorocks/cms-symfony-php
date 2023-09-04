@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\DataTransferObject\Category\CategoryCreateUpdateDto;
-use App\Helper\CategoryHelper;
+use App\Helper\DomainHelper;
 use App\Repository\CategoryRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -57,7 +57,7 @@ class SyncCategoriesCommand extends Command
             $this->categoryRepository->createIfNotExist(new CategoryCreateUpdateDto(
                 $category,
                 null,
-                CategoryHelper::slugify($category),
+                DomainHelper::slugify($category),
                 null,
                 null
             ));

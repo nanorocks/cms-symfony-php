@@ -10,3 +10,10 @@ Access:
 
 # Docker reference
 - `https://github.com/sports-match-maker/docker-pnmamhes/blob/main/README.md`
+
+
+
+# Most used commands
+
+- php bin/console make:migration
+- php bin/console doctrine:migrations:migrate

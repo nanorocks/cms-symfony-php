@@ -28,6 +28,7 @@ class TagRepository extends ServiceEntityRepository
 
         $tag->setName($dto->name);
         $tag->setDescription($dto->description);
+        $tag->setSlug($dto->slug);
 
         $entityManager = $this->getEntityManager();
         $entityManager->persist($tag);
@@ -45,6 +46,18 @@ class TagRepository extends ServiceEntityRepository
         }
 
         return $tag;
+    }
+
+    public function findByName(string $value): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.name LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
+            ->orderBy('t.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     //    /**

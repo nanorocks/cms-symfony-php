@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\DataTransferObject\Tag\TagCreateUpdateDto;
+use App\Helper\DomainHelper;
 use App\Repository\TagRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -130,6 +131,7 @@ class SyncTagsCommand extends Command
         foreach ($tags as $tag) {
             $this->tagRepository->createIfNotExist(new TagCreateUpdateDto(
                 $tag,
+                DomainHelper::slugify($tag),
                 null
             ));
         }

@@ -2,7 +2,7 @@
 
 namespace App\Helper;
 
-final class CategoryHelper
+final class DomainHelper
 {
     public static function slugify(string $text): string
     {
