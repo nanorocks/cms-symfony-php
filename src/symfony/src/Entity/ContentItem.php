@@ -17,17 +17,17 @@ class ContentItem
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
 
     // Short description or teaser for the item.
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $excerpt = null;
 
     #[ORM\Column(length: 255)]
@@ -39,19 +39,16 @@ class ContentItem
     #[ORM\Column]
     private ?\DateTimeImmutable $publishedAt = null;
 
-    #[ORM\OneToOne(inversedBy: 'contentItem', cascade: ['persist', 'remove'])]
-    private ?User $author = null;
-
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'contentItems')]
     private Collection $categories;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $videoUrl = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'contentItem', targetEntity: Comment::class)]
@@ -62,6 +59,9 @@ class ContentItem
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'contentItems')]
     private Collection $tags;
+
+    #[ORM\ManyToOne(inversedBy: 'contentItems')]
+    private ?User $author = null;
 
     public function __construct()
     {
@@ -156,18 +156,6 @@ class ContentItem
     public function setPublishedAt(\DateTimeImmutable $publishedAt): static
     {
         $this->publishedAt = $publishedAt;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?User $author): static
-    {
-        $this->author = $author;
 
         return $this;
     }
@@ -306,6 +294,18 @@ class ContentItem
     public function removeTag(Tag $tag): static
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

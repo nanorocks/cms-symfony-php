@@ -17,10 +17,10 @@ class ContentItemCreateUpdateDto
         public ?bool $published,
         public ?\DateTimeImmutable $publishedAt,
         public ?User $author,
-        public Collection $categories,
         public ?string $videoUrl,
-        public Collection $images,
-        public Collection $tags,
+        // public Collection $categories,
+        // public Collection $images,
+        // public Collection $tags,
     )  
     {}
 }

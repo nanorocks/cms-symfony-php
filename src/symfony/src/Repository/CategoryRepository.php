@@ -22,7 +22,7 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    public function createCategory(CategoryCreateUpdateDto $dto)
+    public function createCategory(CategoryCreateUpdateDto $dto): Category
     {
         $category = new Category();
 

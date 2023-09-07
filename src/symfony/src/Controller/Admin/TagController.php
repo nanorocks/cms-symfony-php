@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\PlainOldPhpObject\Tag\TagCreateUpdatePopo;
 use App\Repository\TagRepository;
@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin')]
 class TagController extends AbstractController
 {
     public function __construct(

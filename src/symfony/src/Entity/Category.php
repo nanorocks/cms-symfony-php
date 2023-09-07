@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Helper\DomainHelper;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -17,10 +19,10 @@ class Category
 
     #[ORM\ManyToMany(targetEntity: ContentItem::class, mappedBy: 'categories')]
     private Collection $contentItems;
-
+    
     #[ORM\Column(length: 255)]
     private ?string $name = null;
-
+  
     #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 
@@ -95,7 +97,7 @@ class Category
 
     public function setSlug(string $slug): static
     {
-        $this->slug = $slug;
+        $this->slug = DomainHelper::slugify($slug);
 
         return $this;
     }
@@ -163,11 +165,10 @@ class Category
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    #[ORM\PrePersist]
+    public function setUpdatedAt(): void
     {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getImage(): ?Media

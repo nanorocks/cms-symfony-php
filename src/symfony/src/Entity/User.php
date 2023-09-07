@@ -29,7 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, unique: true)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
     #[ORM\Column]
@@ -38,15 +38,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToOne(mappedBy: 'author', cascade: ['persist', 'remove'])]
-    private ?ContentItem $contentItem = null;
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
     #[ORM\ManyToMany(targetEntity: Comment::class, mappedBy: 'author')]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: ContentItem::class)]
+    private Collection $contentItems;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->contentItems = new ArrayCollection();
     }
 
     public function getAvatar(): ?string
@@ -54,7 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): static
+    public function setAvatar(?string $avatar): static
     {
         $this->avatar = $avatar;
 
@@ -72,15 +82,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
-    private ?string $password = null;
-
-    #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
 
     public function getId(): ?int
     {
@@ -176,28 +177,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getContentItem(): ?ContentItem
-    {
-        return $this->contentItem;
-    }
-
-    public function setContentItem(?ContentItem $contentItem): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($contentItem === null && $this->contentItem !== null) {
-            $this->contentItem->setAuthor(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($contentItem !== null && $contentItem->getAuthor() !== $this) {
-            $contentItem->setAuthor($this);
-        }
-
-        $this->contentItem = $contentItem;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Comment>
      */
@@ -233,6 +212,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ContentItem>
+     */
+    public function getContentItems(): Collection
+    {
+        return $this->contentItems;
+    }
+
+    public function addContentItem(ContentItem $contentItem): static
+    {
+        if (!$this->contentItems->contains($contentItem)) {
+            $this->contentItems->add($contentItem);
+            $contentItem->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContentItem(ContentItem $contentItem): static
+    {
+        if ($this->contentItems->removeElement($contentItem)) {
+            // set the owning side to null (unless already changed)
+            if ($contentItem->getAuthor() === $this) {
+                $contentItem->setAuthor(null);
+            }
+        }
 
         return $this;
     }

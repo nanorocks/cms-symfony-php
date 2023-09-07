@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Repository\ContentItemRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +10,7 @@ use App\Request\Category\ContentItemCreateUpdateRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\PlainOldPhpObject\ContentItem\ContentItemCreateUpdatePopo;
 
+#[Route('/admin')]
 class ContentItemController extends AbstractController
 {
 

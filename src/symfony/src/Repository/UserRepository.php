@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\DataTransferObject\User\UserCreateUpdateDto;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -24,6 +25,36 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    public function createUser(UserCreateUpdateDto $dto): User
+    {
+        $user = new User();
+        
+        $user->setEmail($dto->email);
+        $user->setRoles($dto->roles);
+        $user->setUsername($dto->username);
+        $user->setAvatar($dto->avatar);
+        $user->setPassword($dto->password);
+        $user->setIsVerified($dto->isVerified);
+        $user->setCreatedAt(new \DateTimeImmutable('now'));
+
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $user;
+    }
+
+    public function createIfNotExist(UserCreateUpdateDto $dto): User
+    {
+        $user = $this->findOneBy(['email' => $dto->email]);
+
+        if (!$user) {
+            $user = $this->createUser($dto);
+        }
+
+        return $user;
     }
 
     /**

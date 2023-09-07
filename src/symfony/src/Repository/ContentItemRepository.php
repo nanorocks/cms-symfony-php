@@ -38,27 +38,38 @@ class ContentItemRepository extends ServiceEntityRepository
         $contentItem->setPublishedAt($contentItemDto->publishedAt);
         $contentItem->setAuthor($contentItemDto->author);
 
-        foreach($contentItemDto->categories as $category) // ? not sure it will work
-        {
-            $contentItem->addCategory(new Category($category));
-        }
+        // foreach($contentItemDto->categories as $category) // ? not sure it will work
+        // {
+        //     $contentItem->addCategory(new Category($category));
+        // }
        
         $contentItem->setVideoUrl($contentItemDto->videoUrl);
         $contentItem->setCreatedAt(new \DateTimeImmutable('now'));
 
-        foreach($contentItemDto->images as $image) // ? not sure it will work
-        {
-            $contentItem->addImage(new Media($image));
-        }
+        // foreach($contentItemDto->images as $image) // ? not sure it will work
+        // {
+        //     $contentItem->addImage(new Media($image));
+        // }
 
-        foreach($contentItemDto->tags as $tag) // ? not sure it will work
-        {
-            $contentItem->addTag(new Tag($tag));
-        }
+        // foreach($contentItemDto->tags as $tag) // ? not sure it will work
+        // {
+        //     $contentItem->addTag(new Tag($tag));
+        // }
 
         $entityManager = $this->getEntityManager();
         $entityManager->persist($contentItem);
         $entityManager->flush();
+
+        return $contentItem;
+    }
+
+    public function createIfNotExist(ContentItemCreateUpdateDto $dto): ContentItem
+    {
+        $contentItem = $this->findOneBy(['slug' => $dto->slug]);
+
+        if (!$contentItem) {
+            $contentItem = $this->createContentItem($dto);
+        }
 
         return $contentItem;
     }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,14 +11,18 @@ use App\Request\Category\CategoryCreateUpdateRequest;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\PlainOldPhpObject\Category\CategoryCreateUpdatePopo;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+#[Route('/admin')]
 class CategoryController extends AbstractController
 {
     public function __construct(
         public CategoryRepository $categoryRepository,
         public SerializerInterface $serializer,
         public PaginatorInterface $paginator,
+        public ManagerRegistry $doctrine
     )
     {
     }
@@ -37,7 +42,8 @@ class CategoryController extends AbstractController
             // Items per page
             5
         );
-        
+
+        // dd($categories[0]);
         return $this->render('admin/category/index.html.twig', [
             'categories' => $categories
         ]);
@@ -47,18 +53,34 @@ class CategoryController extends AbstractController
     public function create(CategoryCreateUpdateRequest $request)
     {
         $category = $this->categoryRepository->createCategory($request->toDto());
-
+        
         return $this->json([
             'msg' => 'Category created!!!',
             'data' => (new CategoryCreateUpdatePopo($category))->json()
         ], 200);
     }
 
-    #[Route('/categories', name: 'app_category_update', methods: [Request::METHOD_PUT])]
-    public function update()
+    #[Route('/categories/{id}', name: 'app_category_edit', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    public function edit(int $id, Request $request)
     {
-        return $this->render('admin/category/index.html.twig', [
+        $category = $this->categoryRepository->find($id);
 
+        $category->setUpdatedAt();
+
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->doctrine->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_category');
+        }
+       
+        return $this->render('admin/category/create-update-category.html.twig', [
+            'category' => $category,
+            'form' => $form,
         ]);
     }
 
