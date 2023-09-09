@@ -6,6 +6,7 @@ use App\DataTransferObject\Category\CategoryCreateUpdateDto;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @extends ServiceEntityRepository<Category>
@@ -31,7 +32,7 @@ class CategoryRepository extends ServiceEntityRepository
         $category->setSlug($dto->slug);
         $category->setImage($dto->image);
         $category->setDescription($dto->description);
-        $category->setCreatedAt(new \DateTimeImmutable('now'));
+        $category->setCreatedAt();
 
         $entityManager = $this->getEntityManager();
         $entityManager->persist($category);
@@ -51,28 +52,47 @@ class CategoryRepository extends ServiceEntityRepository
         return $category;
     }
 
-//    /**
-//     * @return Category[] Returns an array of Category objects
-//     */
-   public function findBySlug(string $value): array
-   {
-       return $this->createQueryBuilder('c')
-           ->andWhere('c.slug LIKE :val')
-           ->setParameter('val', '%' . $value . '%')
-           ->orderBy('c.id', 'ASC')
-           ->setMaxResults(10)
-           ->getQuery()
-           ->getResult()
-       ;
-   }
+    public function findBySlug(string $value): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.slug LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Category
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function delete(int $categoryId): ?int
+    {
+        $category = $this->find($categoryId);
+
+        if (!$category) {
+            throw new NotFoundHttpException('Category not found');
+        }
+
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($category);
+        $entityManager->flush();
+
+        return $categoryId;
+    }
+
+    public function findAllOrdered($orderByField = 'createdAt', $direction = 'ASC')
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy("c.$orderByField", $direction)
+            ->getQuery()
+            ->getResult();
+    }
+
+    //    public function findOneBySomeField($value): ?Category
+    //    {
+    //        return $this->createQueryBuilder('c')
+    //            ->andWhere('c.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

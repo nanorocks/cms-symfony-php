@@ -29,22 +29,9 @@
 							</svg>
 						</button>
 
-						<button class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring" onclick="my_modal_1.showModal()" type="button">
+						<a href="{{ path('app_category_create') }}" class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring" type="button">
 							Create new
-						</button>
-
-
-						<dialog id="my_modal_1" class="modal w-40">
-							<form method="dialog" class="modal-box">
-								<h3 class="font-bold text-lg">Hello!</h3>
-								<p class="py-4">Press ESC key or click the button below to close</p>
-								<div
-									class="modal-action">
-									<!-- if there is a button in form, it will close the modal -->
-									<button class="btn">Close</button>
-								</div>
-							</form>
-						</dialog>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -199,7 +186,7 @@
 							</td>
 						{% endif %}
 						{% for category in categories %}
-							<tr>
+							<tr id="category-row-{{category.id}}">
 								<td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
 									{{ category.id }}
 								</td>
@@ -215,12 +202,30 @@
 											Edit
 										</a>
 
-										<button class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+										<button onclick="delete_category_{{ category.id }}_action.showModal()" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
 											Delete
 										</button>
 									</span>
 								</td>
 							</tr>
+							<dialog id="delete_category_{{ category.id }}_action" class="modal w-full-xl rounded-lg">
+								<form method="dialog" class="modal-box">
+									<h2 class="text-xl font-bold text-gray-900 sm:text-1xl">Delete Category</h2>
+									<p class="mt-1.5 text-sm text-gray-500">
+										You will be making a Delete Action for
+										<strong>Category:
+											{{ category.name }}
+											with ID:
+											{{ category.id }}
+										</strong>
+									</p>
+									<div class="modal-action mt-4">
+										<button data-path="{{ path('app_category_delete', {'id': category.id}) }}" onclick="deleteCategory(this)" class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700">
+											Delete
+										</button>
+									</div>
+								</form>
+							</dialog>
 						{% endfor %}
 					</tbody>
 				</table>
@@ -230,5 +235,39 @@
 
 		</div>
 	</main>
+
+	<script type="text/javascript">
+		const deleteCategory = (el) => {
+const path = el.getAttribute('data-path');
+
+fetch(path, {method: 'DELETE'}).then(res => res.json()).then(res => {
+console.log(res)
+Toastify({text: res.msg, className: "info", duration: 2000}).showToast();
+{
+# document.getElementById (`category-row-${
+res.data
+}`).remove();
+#
+} removeFadeOut(document.getElementById (`category-row-${
+res.data
+}`), 1000)
+
+setTimeout(() => {
+window.location.reload();
+}, 1200)
+})
+
+}
+
+function removeFadeOut(el, speed) {
+var seconds = speed / 1000;
+el.style.transition = "opacity " + seconds + "s ease";
+
+el.style.opacity = 0;
+setTimeout(function () {
+el.parentNode.removeChild(el);
+}, speed);
+}
+	</script>
 
 {% endblock %}

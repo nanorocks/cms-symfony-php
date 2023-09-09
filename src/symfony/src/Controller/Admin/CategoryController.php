@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -32,7 +33,7 @@ class CategoryController extends AbstractController
     {
         $slug = $request->query->get('slug', "");
 
-        $categories = !empty($slug) ? $this->categoryRepository->findBySlug($slug) : $this->categoryRepository->findAll();
+        $categories = !empty($slug) ? $this->categoryRepository->findBySlug($slug) : $this->categoryRepository->findAllOrdered();
 
         $categories = $this->paginator->paginate(
             // Doctrine Query, not results
@@ -49,15 +50,30 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/categories', name: 'app_category_create', methods: [Request::METHOD_POST])]
-    public function create(CategoryCreateUpdateRequest $request)
+    #[Route('/categories/new', name: 'app_category_create', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    public function create(Request $request)
     {
-        $category = $this->categoryRepository->createCategory($request->toDto());
-        
-        return $this->json([
-            'msg' => 'Category created!!!',
-            'data' => (new CategoryCreateUpdatePopo($category))->json()
-        ], 200);
+        $category = new Category();
+
+        $category->setCreatedAt();
+
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->doctrine->getManager();
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_category');
+        }
+       
+        return $this->render('admin/category/create-update-category.html.twig', [
+            'category' => $category,
+            'form' => $form,
+            'isEditMode' => false
+        ]);
     }
 
     #[Route('/categories/{id}', name: 'app_category_edit', methods: [Request::METHOD_GET, Request::METHOD_POST])]
@@ -81,14 +97,18 @@ class CategoryController extends AbstractController
         return $this->render('admin/category/create-update-category.html.twig', [
             'category' => $category,
             'form' => $form,
+            'isEditMode' => true
         ]);
     }
 
-    #[Route('/categories', name: 'app_category_delete', methods: [Request::METHOD_DELETE])]
-    public function delete()
+    #[Route('/categories/{id}', name: 'app_category_delete', methods: [Request::METHOD_DELETE])]
+    public function delete(int $id)
     {
-        return $this->render('admin/category/index.html.twig', [
-
-        ]);
+        $category = $this->categoryRepository->delete($id);
+       
+        return $this->json([
+            'msg' => 'Category deleted!!!',
+            'data' => $category,
+        ], 200);
     }
 }
