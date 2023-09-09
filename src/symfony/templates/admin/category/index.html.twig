@@ -3,271 +3,286 @@
 
 {# the following is valid #}
 {% block content %}
+    <main class="ml-64 p-8">
+        <header class="bg-white rounded-lg">
+            <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+                <div class="sm:flex sm:items-center sm:justify-between">
+                    <div class="text-center sm:text-left">
+                        <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
+                            Categories ({{ categories.getTotalItemCount }})
+                        </h1>
 
-	<main class="ml-64 p-8">
-		<header class="bg-white rounded-lg">
-			<div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-				<div class="sm:flex sm:items-center sm:justify-between">
-					<div class="text-center sm:text-left">
-						<h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
-							Categories ({{ categories.getTotalItemCount }})
-						</h1>
+                        <p class="mt-1.5 text-sm text-gray-500">
+                            We upload media files for: categories, video thumbnails, video gifs, girl photo models
+                        </p>
+                    </div>
 
-						<p class="mt-1.5 text-sm text-gray-500">
-							We upload media files for: categories, video thumbnails, video gifs, girl photo models
-						</p>
-					</div>
-
-					<div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-						<button class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring" type="button">
+                    <div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
+                        <button class="inline-flex items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-500 transition hover:text-gray-700 focus:outline-none focus:ring"
+                                type="button">
 							<span class="text-sm font-medium">
 								View Website
 							</span>
 
-							<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-							</svg>
-						</button>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewbox="0 0 24 24"
+                                 stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                        </button>
 
-						<a href="{{ path('app_category_create') }}" class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring" type="button">
-							Create new
-						</a>
-					</div>
-				</div>
-			</div>
-		</header>
+                        <a href="{{ path('app_category_create') }}"
+                           class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
+                           type="button">
+                            Create new
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-		<!-- Filter Media by Attributes -->
-		<div class="bg-white mt-4 rounded-lg">
+        <!-- Filter Media by Attributes -->
+        <div class="bg-white mt-4 rounded-lg">
 
-			<div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-2 lg:px-8">
-				<div class="flex gap-8 pb-4 pt-4">
-					<div class="relative">
-						<details class="group [&_summary::-webkit-details-marker]:hidden">
-							<summary class="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
+            <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-2 lg:px-8">
+                <div class="flex gap-8 pb-4 pt-4">
+                    <div class="relative">
+                        <details class="group [&_summary::-webkit-details-marker]:hidden">
+                            <summary
+                                    class="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
 								<span class="text-sm font-medium">
 									Availability
 								</span>
 
-								<span class="transition group-open:-rotate-180">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                                <span class="transition group-open:-rotate-180">
+									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24"
+                                         stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+										<path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
 									</svg>
 								</span>
-							</summary>
+                            </summary>
 
-							<div class="z-50 group-open:absolute group-open:start-0 group-open:top-auto group-open:mt-2">
-								<div class="w-96 rounded border border-gray-200 bg-white">
-									<header class="flex items-center justify-between p-4">
+                            <div class="z-50 group-open:absolute group-open:start-0 group-open:top-auto group-open:mt-2">
+                                <div class="w-96 rounded border border-gray-200 bg-white">
+                                    <header class="flex items-center justify-between p-4">
 										<span class="text-sm text-gray-700">
 											0 Selected
 										</span>
 
-										<button type="button" class="text-sm text-gray-900 underline underline-offset-4">
-											Reset
-										</button>
-									</header>
+                                        <button type="button"
+                                                class="text-sm text-gray-900 underline underline-offset-4">
+                                            Reset
+                                        </button>
+                                    </header>
 
-									<ul class="space-y-1 border-t border-gray-200 p-4">
-										<li>
-											<label for="FilterInStock" class="inline-flex items-center gap-2">
-												<input type="checkbox" id="FilterInStock" class="h-5 w-5 rounded border-gray-300"/>
+                                    <ul class="space-y-1 border-t border-gray-200 p-4">
+                                        <li>
+                                            <label for="FilterInStock" class="inline-flex items-center gap-2">
+                                                <input type="checkbox" id="FilterInStock"
+                                                       class="h-5 w-5 rounded border-gray-300"/>
 
-												<span class="text-sm font-medium text-gray-700">
+                                                <span class="text-sm font-medium text-gray-700">
 													In Stock (5+)
 												</span>
-											</label>
-										</li>
+                                            </label>
+                                        </li>
 
-										<li>
-											<label for="FilterPreOrder" class="inline-flex items-center gap-2">
-												<input type="checkbox" id="FilterPreOrder" class="h-5 w-5 rounded border-gray-300"/>
+                                        <li>
+                                            <label for="FilterPreOrder" class="inline-flex items-center gap-2">
+                                                <input type="checkbox" id="FilterPreOrder"
+                                                       class="h-5 w-5 rounded border-gray-300"/>
 
-												<span class="text-sm font-medium text-gray-700">
+                                                <span class="text-sm font-medium text-gray-700">
 													Pre Order (3+)
 												</span>
-											</label>
-										</li>
+                                            </label>
+                                        </li>
 
-										<li>
-											<label for="FilterOutOfStock" class="inline-flex items-center gap-2">
-												<input type="checkbox" id="FilterOutOfStock" class="h-5 w-5 rounded border-gray-300"/>
+                                        <li>
+                                            <label for="FilterOutOfStock" class="inline-flex items-center gap-2">
+                                                <input type="checkbox" id="FilterOutOfStock"
+                                                       class="h-5 w-5 rounded border-gray-300"/>
 
-												<span class="text-sm font-medium text-gray-700">
+                                                <span class="text-sm font-medium text-gray-700">
 													Out of Stock (10+)
 												</span>
-											</label>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</details>
-					</div>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
 
-					<div class="relative">
-						<details class="group [&_summary::-webkit-details-marker]:hidden">
-							<summary class="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
+                    <div class="relative">
+                        <details class="group [&_summary::-webkit-details-marker]:hidden">
+                            <summary
+                                    class="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
 								<span class="text-sm font-medium">
 									Price
 								</span>
 
-								<span class="transition group-open:-rotate-180">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
-										<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                                <span class="transition group-open:-rotate-180">
+									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24"
+                                         stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+										<path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
 									</svg>
 								</span>
-							</summary>
+                            </summary>
 
-							<div class="z-50 group-open:absolute group-open:start-0 group-open:top-auto group-open:mt-2">
-								<div class="w-96 rounded border border-gray-200 bg-white">
-									<header class="flex items-center justify-between p-4">
+                            <div class="z-50 group-open:absolute group-open:start-0 group-open:top-auto group-open:mt-2">
+                                <div class="w-96 rounded border border-gray-200 bg-white">
+                                    <header class="flex items-center justify-between p-4">
 										<span class="text-sm text-gray-700">
 											The highest price is $600
 										</span>
 
-										<button type="button" class="text-sm text-gray-900 underline underline-offset-4">
-											Reset
-										</button>
-									</header>
+                                        <button type="button"
+                                                class="text-sm text-gray-900 underline underline-offset-4">
+                                            Reset
+                                        </button>
+                                    </header>
 
-									<div class="border-t border-gray-200 p-4">
-										<div class="flex justify-between gap-4">
-											<label for="FilterPriceFrom" class="flex items-center gap-2">
-												<span class="text-sm text-gray-600">$</span>
+                                    <div class="border-t border-gray-200 p-4">
+                                        <div class="flex justify-between gap-4">
+                                            <label for="FilterPriceFrom" class="flex items-center gap-2">
+                                                <span class="text-sm text-gray-600">$</span>
 
-												<input type="number" id="FilterPriceFrom" placeholder="From" class="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
-											</label>
+                                                <input type="number" id="FilterPriceFrom" placeholder="From"
+                                                       class="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                                            </label>
 
-											<label for="FilterPriceTo" class="flex items-center gap-2">
-												<span class="text-sm text-gray-600">$</span>
+                                            <label for="FilterPriceTo" class="flex items-center gap-2">
+                                                <span class="text-sm text-gray-600">$</span>
 
-												<input type="number" id="FilterPriceTo" placeholder="To" class="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
-											</label>
-										</div>
-									</div>
-								</div>
-							</div>
-						</details>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="bg-white mt-4 rounded-lg">
-			<div class="overflow-x-auto pt-4">
+                                                <input type="number" id="FilterPriceTo" placeholder="To"
+                                                       class="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white mt-4 rounded-lg">
+            <div class="overflow-x-auto pt-4">
 
-				<table class="min-w-full divide-y-2 divide-gray-200 text-sm text-center">
-					<thead class="ltr:text-left rtl:text-right">
-						<tr>
-							<th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-								ID
-							</th>
-							<th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-								Name
-							</th>
-							<th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-								Slug
-							</th>
-							<th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-								Parent
-							</th>
-							<th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-								Updated at
-							</th>
-							<th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-								Actions
-							</th>
-						</tr>
-					</thead>
+                <table class="min-w-full divide-y-2 divide-gray-200 text-sm text-center">
+                    <thead class="ltr:text-left rtl:text-right">
+                    <tr>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                            ID
+                        </th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                            Name
+                        </th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                            Slug
+                        </th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                            Parent
+                        </th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                            Updated at
+                        </th>
+                        <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
 
-					<tbody class="divide-y divide-gray-200">
-						{% if categories is null or categories is empty %}
-							<td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900" colspan="6">
-								No data
-							</td>
-						{% endif %}
-						{% for category in categories %}
-							<tr id="category-row-{{category.id}}">
-								<td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-									{{ category.id }}
-								</td>
-								<td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-									{{ category.name }}
-								</td>
-								<td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ category.slug }}</td>
-								<td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ category.parent is null ? "N/A" : category.parent.name }}</td>
-								<td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ category.updatedAt is null ? "N/A" : category.updatedAt|date('d-m-Y H:i:s') }}</td>
-								<td class="whitespace-nowrap px-4 py-2">
+                    <tbody class="divide-y divide-gray-200">
+                    {% if categories is null or categories is empty %}
+                        <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900" colspan="6">
+                            No data
+                        </td>
+                    {% endif %}
+                    {% for category in categories %}
+                        <tr id="category-row-{{ category.id }}">
+                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                {{ category.id }}
+                            </td>
+                            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                {{ category.name }}
+                            </td>
+                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ category.slug }}</td>
+                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ category.parent is null ? "N/A" : category.parent.name }}</td>
+                            <td class="whitespace-nowrap px-4 py-2 text-gray-700">{{ category.updatedAt is null ? "N/A" : category.updatedAt|date('d-m-Y H:i:s') }}</td>
+                            <td class="whitespace-nowrap px-4 py-2">
 									<span class="inline-flex -space-x-px overflow-hidden rounded-md border bg-white shadow-sm">
-										<a href="{{ path('app_category_edit', {'id': category.id}) }}" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+										<a href="{{ path('app_category_edit', {'id': category.id}) }}"
+                                           class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
 											Edit
 										</a>
 
-										<button onclick="delete_category_{{ category.id }}_action.showModal()" class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
+										<button onclick="delete_category_{{ category.id }}_action.showModal()"
+                                                class="inline-block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:relative">
 											Delete
 										</button>
 									</span>
-								</td>
-							</tr>
-							<dialog id="delete_category_{{ category.id }}_action" class="modal w-full-xl rounded-lg">
-								<form method="dialog" class="modal-box">
-									<h2 class="text-xl font-bold text-gray-900 sm:text-1xl">Delete Category</h2>
-									<p class="mt-1.5 text-sm text-gray-500">
-										You will be making a Delete Action for
-										<strong>Category:
-											{{ category.name }}
-											with ID:
-											{{ category.id }}
-										</strong>
-									</p>
-									<div class="modal-action mt-4">
-										<button data-path="{{ path('app_category_delete', {'id': category.id}) }}" onclick="deleteCategory(this)" class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700">
-											Delete
-										</button>
-									</div>
-								</form>
-							</dialog>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
+                            </td>
+                        </tr>
+                        <dialog id="delete_category_{{ category.id }}_action" class="modal w-full-xl rounded-lg">
+                            <form method="dialog" class="modal-box">
+                                <h2 class="text-xl font-bold text-gray-900 sm:text-1xl">Delete Category</h2>
+                                <p class="mt-1.5 text-sm text-gray-500">
+                                    You will be making a Delete Action for
+                                    <strong>Category:
+                                        {{ category.name }}
+                                        with ID:
+                                        {{ category.id }}
+                                    </strong>
+                                </p>
+                                <div class="modal-action mt-4">
+                                    <button data-path="{{ path('app_category_delete', {'id': category.id}) }}"
+                                            onclick="deleteItem(this)"
+                                            class="block rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700">
+                                        Delete
+                                    </button>
+                                </div>
+                            </form>
+                        </dialog>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {{ knp_pagination_render(categories) }}
+        </div>
+    </main>
 
-			{{ knp_pagination_render(categories) }}
+    <script type="text/javascript">
+        const deleteItem = (el) => {
+            const path = el.getAttribute('data-path');
 
-		</div>
-	</main>
+            fetch(path, {method: 'DELETE'}).then(res => res.json()).then(res => {
+                console.log(res)
+                Toastify({text: res.msg, className: "info", duration: 2000}).showToast();
 
-	<script type="text/javascript">
-		const deleteCategory = (el) => {
-const path = el.getAttribute('data-path');
+                removeFadeOut(document.getElementById(`category-row-${
+                    res.data
+                }`), 1000)
 
-fetch(path, {method: 'DELETE'}).then(res => res.json()).then(res => {
-console.log(res)
-Toastify({text: res.msg, className: "info", duration: 2000}).showToast();
-{
-# document.getElementById (`category-row-${
-res.data
-}`).remove();
-#
-} removeFadeOut(document.getElementById (`category-row-${
-res.data
-}`), 1000)
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1200)
+            })
 
-setTimeout(() => {
-window.location.reload();
-}, 1200)
-})
+        }
 
-}
+        function removeFadeOut(el, speed) {
+            const seconds = speed / 1000;
+            el.style.transition = "opacity " + seconds + "s ease";
 
-function removeFadeOut(el, speed) {
-var seconds = speed / 1000;
-el.style.transition = "opacity " + seconds + "s ease";
-
-el.style.opacity = 0;
-setTimeout(function () {
-el.parentNode.removeChild(el);
-}, speed);
-}
-	</script>
+            el.style.opacity = 0;
+            setTimeout(function () {
+                el.parentNode.removeChild(el);
+            }, speed);
+        }
+    </script>
 
 {% endblock %}

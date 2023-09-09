@@ -6,7 +6,10 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Request\Category\CategoryCreateUpdateRequest;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -29,7 +32,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/categories', name: 'app_category', methods: [Request::METHOD_GET])]
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $slug = $request->query->get('slug', "");
 
@@ -51,7 +54,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/categories/new', name: 'app_category_create', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse|Response
     {
         $category = new Category();
 
@@ -77,7 +80,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/categories/{id}', name: 'app_category_edit', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function edit(int $id, Request $request)
+    public function edit(int $id, Request $request): RedirectResponse|Response
     {
         $category = $this->categoryRepository->find($id);
 
@@ -102,7 +105,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/categories/{id}', name: 'app_category_delete', methods: [Request::METHOD_DELETE])]
-    public function delete(int $id)
+    public function delete(int $id): JsonResponse
     {
         $category = $this->categoryRepository->delete($id);
        

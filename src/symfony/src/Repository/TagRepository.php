@@ -6,6 +6,7 @@ use App\DataTransferObject\Tag\TagCreateUpdateDto;
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @extends ServiceEntityRepository<Tag>
@@ -56,8 +57,33 @@ class TagRepository extends ServiceEntityRepository
             ->orderBy('t.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+    }
+
+    public function findBySlug(string $value): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.slug LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function delete(int $tagId): ?int
+    {
+        $category = $this->find($tagId);
+
+        if (!$category) {
+            throw new NotFoundHttpException('Category not found');
+        }
+
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($category);
+        $entityManager->flush();
+
+        return $tagId;
     }
 
     //    /**
